@@ -1,5 +1,3 @@
-use std::time::Instant;
-
 use minisat::{Bool, Solver};
 
 type Vec2D<T> = Vec<Vec<T>>;
@@ -55,7 +53,7 @@ fn add_condition(s: &mut Solver, lits: &[Bool], cons: &[u32], len: u32) {
     s.add_clause(lits);
 }
 
-pub fn find_solutions(cons: &[u32], len: u32) -> Vec2D<bool> {
+fn find_solutions(cons: &[u32], len: u32) -> Vec2D<bool> {
     let curr = match cons.first() {
         Some(&n) => n,
         None => {
