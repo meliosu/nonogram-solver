@@ -4,4 +4,4 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-minisat = "0.4.4"
+minisat = { version = "0.4.4", features = ["glucose"] }

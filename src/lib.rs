@@ -28,7 +28,9 @@ pub fn solve(rows: Vec2D<u32>, cols: Vec2D<u32>) -> Option<Vec2D<bool>> {
         add_condition(&mut s, lits, col, height as u32);
     }
 
-    eprintln!("SOLVER: {s:?}");
+    eprintln!("Solver:");
+    eprintln!("- {} vars", s.num_vars());
+    eprintln!("- {} clauses", s.num_clauses());
 
     let model = s.solve().ok()?;
 
