@@ -1,0 +1,7 @@
+[package]
+name = "nonogram"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+minisat = "0.4.4"
