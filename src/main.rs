@@ -31,6 +31,8 @@ fn main() {
             nonogram::solver_kissat::solve(rows, cols)
         } else if solver == "automaton" {
             nonogram::solver_automaton::solve(rows, cols)
+        } else if solver == "automaton-minisat" {
+            nonogram::solver_automaton_minisat::solve(rows, cols)
         } else {
             eprintln!("wrong solver name");
             return;
