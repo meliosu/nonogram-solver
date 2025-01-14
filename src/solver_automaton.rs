@@ -112,22 +112,32 @@ fn add_condition(s: &mut Solver, lits: &[Var], cons: &[u32], len: u32) {
         states[num_states - 1][len - 1],
     );
 
+    // all states except last 2 are not valid end states
+    for state in 0..(num_states - 2) {
+        s.add1(!states[state][len - 1]);
+    }
+
     // start condition
     // if first cell is picked, go to 2nd state
     // if it is not, remain in the start state
     s.add2(lits[0], states[0][0]);
     s.add2(!lits[0], states[1][0]);
 
-    // at each timestep only one state is valid
-    for i in 0..len {
-        for j in 0..num_states {
-            for k in 0..num_states {
-                if j == k {
-                    continue;
-                }
-
-                s.add2(!states[j][i], !states[k][i]);
-            }
-        }
+    // only two states are valid here
+    for state in 2..num_states {
+        s.add1(!states[state][0]);
     }
+
+    // at each timestep only one state is valid
+    //for i in 0..len {
+    //    for j in 0..num_states {
+    //        for k in 0..num_states {
+    //            if j == k {
+    //                continue;
+    //            }
+    //
+    //            s.add2(!states[j][i], !states[k][i]);
+    //        }
+    //    }
+    //}
 }
