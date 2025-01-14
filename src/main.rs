@@ -9,7 +9,7 @@ fn main() {
         }
     };
 
-    let (rows, cols) = match nonogram::parse(input) {
+    let (rows, cols) = match nonogram::common::parse(input) {
         Some(nonogram) => nonogram,
         None => {
             eprintln!("error parsing nonogram");
@@ -17,19 +17,19 @@ fn main() {
         }
     };
 
-    if let Err(e) = nonogram::validate(&rows, &cols) {
+    if let Err(e) = nonogram::common::validate(&rows, &cols) {
         eprintln!("incorrect nonogram: {e}");
         return;
     }
 
     let start = Instant::now();
 
-    match nonogram::solve(rows, cols) {
+    match nonogram::solver_kissat::solve(rows, cols) {
         Some(solution) => {
             let elapsed = start.elapsed();
 
             println!("SOLUTION:");
-            nonogram::display(&solution);
+            nonogram::common::display(&solution);
 
             eprintln!("TIME:\n{elapsed:?}");
         }
