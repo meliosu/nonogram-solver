@@ -41,7 +41,11 @@ pub fn solve(rows: Vec2D<u32>, cols: Vec2D<u32>) -> Option<Vec2D<bool>> {
 }
 
 fn add_condition(s: &mut Solver, lits: &[Var], cons: &[u32], len: u32) {
-    let lits: Vec<_> = find_solutions(cons, len)
+    let solutions = find_solutions(cons, len);
+
+    eprintln!("{} solutions", solutions.len());
+
+    let lits: Vec<_> = solutions
         .into_iter()
         .map(|solution| {
             s.and_literal(

@@ -24,18 +24,29 @@ fn main() {
 
     let start = Instant::now();
 
-    match nonogram::solver_kissat::solve(rows, cols) {
-        Some(solution) => {
-            let elapsed = start.elapsed();
-
-            println!("SOLUTION:");
-            nonogram::common::display(&solution);
-
-            eprintln!("TIME:\n{elapsed:?}");
+    let solution = if let Some(solver) = std::env::args().nth(1) {
+        if solver == "minisat" {
+            nonogram::solver_minisat::solve(rows, cols)
+        } else if solver == "kissat" {
+            nonogram::solver_kissat::solve(rows, cols)
+        } else if solver == "automaton" {
+            nonogram::solver_automaton::solve(rows, cols)
+        } else {
+            eprintln!("wrong solver name");
+            return;
         }
+    } else {
+        nonogram::solver_kissat::solve(rows, cols)
+    };
 
-        None => {
-            eprintln!("UNSOLVABLE");
-        }
+    let elapsed = start.elapsed();
+
+    if let Some(solution) = solution {
+        println!("SOLUTION:");
+        nonogram::common::display(&solution);
+
+        eprintln!("TIME:\n{elapsed:?}");
+    } else {
+        eprintln!("UNSOLVABLE");
     }
 }
