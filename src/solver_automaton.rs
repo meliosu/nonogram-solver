@@ -123,21 +123,9 @@ fn add_condition(s: &mut Solver, lits: &[Var], cons: &[u32], len: u32) {
     s.add2(lits[0], states[0][0]);
     s.add2(!lits[0], states[1][0]);
 
-    // only two states are valid here
-    for state in 2..num_states {
-        s.add1(!states[state][0]);
+    for i in 0..num_states - 2 {
+        for state in i + 2..num_states {
+            s.add1(!states[state][0]);
+        }
     }
-
-    // at each timestep only one state is valid
-    //for i in 0..len {
-    //    for j in 0..num_states {
-    //        for k in 0..num_states {
-    //            if j == k {
-    //                continue;
-    //            }
-    //
-    //            s.add2(!states[j][i], !states[k][i]);
-    //        }
-    //    }
-    //}
 }
