@@ -33,6 +33,10 @@ fn main() {
             nonogram::solver_automaton::solve(rows, cols)
         } else if solver == "automaton-minisat" {
             nonogram::solver_automaton_minisat::solve(rows, cols)
+        } else if solver == "enclose" {
+            nonogram::solver_enclose::solve(rows, cols)
+        } else if solver == "starts" {
+            nonogram::solver_starts::solve(rows, cols)
         } else {
             eprintln!("wrong solver name");
             return;
